@@ -21,9 +21,9 @@ import codepath.flashcard.classes.Question;
 
 public class MainActivity extends AppCompatActivity {
 
-    private int questionIndex = 1;
+    private int questionIndex = 0;
     private ArrayList<Question> questions = Question.questions;
-    private Question currentQuestion =  questions.get(questionIndex);
+    private Question currentQuestion;
 
 
     @Override
@@ -38,11 +38,56 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // set and display current question
         setQuestion();
+    }
+
+    private void togglePrevNext() {
+
+        // prev / next
+        final Button prev = (Button)findViewById(R.id.prev);
+        final Button next = (Button)findViewById(R.id.next);
+        prev.setEnabled(true);
+        next.setEnabled(true);
+
+        // disable prev if at first question
+        if (questionIndex == 0) {
+            prev.setEnabled(false);
+        }
+
+        // disable next if at last question
+        if (questionIndex == questions.size() - 1) {
+            next.setEnabled(false);
+        }
+
+        // go to previous question
+        prev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                questionIndex--;
+                setQuestion();
+            }
+        });
+
+        // go to next question
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                questionIndex++;
+                setQuestion();
+            }
+        });
+
     }
 
 
     private void setQuestion() {
+
+        // set the current question
+        currentQuestion = questions.get(questionIndex);
+
+        // add events to toggle next / prev questions
+        togglePrevNext();
 
         // main question
         final TextView question = (TextView)findViewById(R.id.question);
@@ -50,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
 
         // set options
         setQuestionOptions();
-
 
     }
 
