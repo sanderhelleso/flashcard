@@ -10,7 +10,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Question {
 
@@ -124,17 +123,5 @@ public class Question {
 
     public String getCorrect() {
         return correct;
-    }
-
-    @Override
-    public String toString() {
-        return "Question{" +
-                "nr=" + nr +
-                ", points=" + points +
-                ", time=" + time +
-                ", question='" + question + '\'' +
-                ", options=" + options +
-                ", correct='" + correct + '\'' +
-                '}';
     }
 }

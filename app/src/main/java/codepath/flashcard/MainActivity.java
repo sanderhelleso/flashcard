@@ -160,7 +160,6 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void selectOption(Button selectedOption, ArrayList<Button> options) {
 
-        int optionIndex = 0;
         for (Button option : options) {
 
             // set wrong option color
@@ -168,13 +167,18 @@ public class MainActivity extends AppCompatActivity {
 
             // disable until next question
             option.setEnabled(false);
+
+            // display correct option
+            // check if selected option is correct
+            if (getResources().getResourceEntryName(option.getId()).equals(currentQuestion.getCorrect())) {
+
+                // set correct option color
+                option.setBackgroundColor(rgb(69, 235, 165));
+            }
         }
 
         // check if selected option is correct
         if (getResources().getResourceEntryName(selectedOption.getId()).equals(currentQuestion.getCorrect())) {
-
-            // set correct option color
-            selectedOption.setBackgroundColor(rgb(69, 235, 165));
             totalPoints += currentQuestion.getPoints();
         }
 
