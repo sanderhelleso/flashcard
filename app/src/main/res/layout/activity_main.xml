@@ -8,15 +8,15 @@
 
     <TextView
         android:id="@+id/question"
-        android:gravity="center"
         android:layout_width="217dp"
-        android:layout_height="210dp"
+        android:layout_height="232dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="36dp"
         android:fontFamily="casual"
+        android:gravity="center"
         android:lineSpacingExtra="4sp"
         android:text="Who is the 44th president of the United States?"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -42,10 +42,10 @@
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.462" />
+        app:layout_constraintVertical_bias="0.533" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/option1"
         android:layout_width="266dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -59,10 +59,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.596" />
+        app:layout_constraintVertical_bias="0.689" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/option2"
         android:layout_width="265dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -77,10 +77,10 @@
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.741" />
+        app:layout_constraintVertical_bias="0.827" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/option3"
         android:layout_width="265dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -95,25 +95,21 @@
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9" />
+        app:layout_constraintVertical_bias="0.964" />
 
     <Button
         android:id="@+id/prev"
         android:layout_width="51dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="392dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="<"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.208" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/next"
@@ -125,12 +121,11 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text=">"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/prev"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.208" />
+        app:layout_constraintVertical_bias="0.23" />
 
 </android.support.constraint.ConstraintLayout>
