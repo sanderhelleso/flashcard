@@ -3,9 +3,14 @@ package codepath.flashcard.classes;
 import android.content.Context;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Question {
 
@@ -54,14 +59,39 @@ public class Question {
         } catch (IOException ex) {
             ex.printStackTrace();
             return null;
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
         // return data
         return questionData;
     }
 
-    private static void createQuestion(String data) {
+    private static void createQuestion(String data) throws JSONException {
         Log.e("Data: ", data);
+
+        // store data in a JSON array
+        JSONArray dataObj = new JSONArray(data);
+
+        // for each JSON object in array, create a question
+        // and store individual question in static list
+        for (int i = 0; i < dataObj.length(); i++) {
+
+            // get current JSON object
+            JSONObject row = dataObj.getJSONObject(i);
+
+            // get individual JSON properties and values
+            int nr = row.getInt("questionNr");
+            int points = row.getInt("points");
+            int time = row.getInt("time");
+            String questionQuestion = row.getString("question");
+            ArrayList<String> questionOptions = new ArrayList<String >();
+            String correctOption = row.getString("correctOption");
+
+            // create new question with retrieved values
+            Question question = new Question(nr, points, time, questionQuestion, questionOptions, correctOption);
+        }
+
     }
 
 
@@ -88,5 +118,17 @@ public class Question {
 
     public String getCorrect() {
         return correct;
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "nr=" + nr +
+                ", points=" + points +
+                ", time=" + time +
+                ", question='" + question + '\'' +
+                ", options=" + options +
+                ", correct='" + correct + '\'' +
+                '}';
     }
 }
