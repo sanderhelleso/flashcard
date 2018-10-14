@@ -1,7 +1,10 @@
 package codepath.flashcard;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.graphics.Color;
+import android.graphics.ColorSpace;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,11 +22,14 @@ import java.util.ArrayList;
 
 import codepath.flashcard.classes.Question;
 
+import static android.graphics.Color.rgb;
+
 public class MainActivity extends AppCompatActivity {
 
     private int questionIndex = 0;
     private ArrayList<Question> questions = Question.questions;
     private Question currentQuestion;
+    private int totalPoints = 0;
 
 
     @Override
@@ -47,17 +53,25 @@ public class MainActivity extends AppCompatActivity {
         // prev / next
         final Button prev = (Button)findViewById(R.id.prev);
         final Button next = (Button)findViewById(R.id.next);
+
+        // enable buttons
         prev.setEnabled(true);
         next.setEnabled(true);
+
+        // set base colors
+        prev.getBackground().setAlpha(255);
+        next.getBackground().setAlpha(255);
 
         // disable prev if at first question
         if (questionIndex == 0) {
             prev.setEnabled(false);
+            prev.getBackground().setAlpha(35);
         }
 
         // disable next if at last question
         if (questionIndex == questions.size() - 1) {
             next.setEnabled(false);
+            next.getBackground().setAlpha(35);
         }
 
         // go to previous question
@@ -81,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @SuppressLint("SetTextI18n")
     private void setQuestion() {
 
         // set the current question
@@ -89,9 +104,21 @@ public class MainActivity extends AppCompatActivity {
         // add events to toggle next / prev questions
         togglePrevNext();
 
-        // main question
+        // display question
         final TextView question = (TextView)findViewById(R.id.question);
         question.setText(currentQuestion.getQuestion());
+
+        // display question id
+        final TextView questionID = (TextView)findViewById(R.id.questionID);
+        questionID.setText("Question " + currentQuestion.getNr() + " / " + questions.size());
+
+        // display how many points the question is worth
+        final TextView questionPoints = (TextView)findViewById(R.id.questionPoints);
+        questionPoints.setText(currentQuestion.getPoints() + " Points");
+
+        // display total points
+        final TextView totalPointsView = (TextView)findViewById(R.id.totalPoints);
+        totalPointsView.setText("My Total Points: " + totalPoints);
 
         // set options
         setQuestionOptions();
@@ -101,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
     private void setQuestionOptions() {
 
         // question options
-        ArrayList<Button> options = new ArrayList<Button>();
+        final ArrayList<Button> options = new ArrayList<Button>();
         options.add((Button)findViewById(R.id.option1));
         options.add((Button)findViewById(R.id.option2));
         options.add((Button)findViewById(R.id.option3));
@@ -109,6 +136,14 @@ public class MainActivity extends AppCompatActivity {
         int optionIndex = 0;
         for (String option : currentQuestion.getOptions()) {
             final Button optionBtn = options.get(optionIndex);
+
+            // reset color
+            optionBtn.setBackgroundColor(rgb(124, 115, 230));
+
+            // enable buttons
+            optionBtn.setEnabled(true);
+
+            // set text
             optionBtn.setText(option);
             optionIndex++;
 
@@ -116,22 +151,43 @@ public class MainActivity extends AppCompatActivity {
             optionBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    selectOption(optionBtn);
+                    selectOption(optionBtn, options);
                 }
             });
         }
     }
 
-    private void selectOption(Button selectedOption) {
+    @SuppressLint("SetTextI18n")
+    private void selectOption(Button selectedOption, ArrayList<Button> options) {
+
+        int optionIndex = 0;
+        for (Button option : options) {
+
+            // set wrong option color
+            option.setBackgroundColor(rgb(232, 74, 95));
+
+            // disable until next question
+            option.setEnabled(false);
+        }
 
         // check if selected option is correct
         if (getResources().getResourceEntryName(selectedOption.getId()).equals(currentQuestion.getCorrect())) {
-            Log.e("CORRECT", "YES");
+
+            // set correct option color
+            selectedOption.setBackgroundColor(rgb(69, 235, 165));
+            totalPoints += currentQuestion.getPoints();
         }
 
-        // handle error
         else {
-
+            // lose 100 points for wrong answer
+            totalPoints -= 100;
+            if (totalPoints < 0) {
+                totalPoints = 0;
+            }
         }
+
+        // update score
+        final TextView totalPointsView = (TextView)findViewById(R.id.totalPoints);
+        totalPointsView.setText("My Total Points: " + totalPoints);
     }
 }

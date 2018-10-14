@@ -3,17 +3,17 @@
     "questionNr": 1,
     "points": 250,
     "time": 60,
-    "question": "Who is the 44th president of the United States?",
+    "question": "Which of these are a data structure?",
     "options": {
-      "option1": "Bill Clinton",
-      "option2": "Donald Trump",
-      "option3": "Barrack Obama"
+      "option1": "String",
+      "option2": "Integer",
+      "option3": "Stack"
     },
-    "correctOption": "option2"
+    "correctOption": "option3"
   },
   {
     "questionNr": 2,
-    "points": 250,
+    "points": 100,
     "time": 60,
     "question": "What is the main language to build Android applications?",
     "options": {
@@ -25,6 +25,18 @@
   },
   {
     "questionNr": 3,
+    "points": 1000,
+    "time": 60,
+    "question": "Is CodePath awesome?",
+    "options": {
+      "option1": "Yes",
+      "option2": "No",
+      "option3": "I dont know"
+    },
+    "correctOption": "option1"
+  },
+  {
+    "questionNr": 4,
     "points": 500,
     "time": 30,
     "question": "What is the main language to build modern web applications?",
@@ -34,5 +46,17 @@
       "option3": "PHP"
     },
     "correctOption": "option2"
+  },
+  {
+    "questionNr": 5,
+    "points": 150,
+    "time": 60,
+    "question": "What is CSS used for?",
+    "options": {
+      "option1": "Style web sites",
+      "option2": "Store food",
+      "option3": "Style clothes"
+    },
+    "correctOption": "option1"
   }
 ]
