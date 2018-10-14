@@ -21,8 +21,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        final String QUESTION_DATA = Question.loadQuestionData(getApplicationContext());
-
+        // load questions
+        Question.loadQuestionData(getApplicationContext());
+        for (Question question : Question.questions) {
+            Log.e("Question: ", String.valueOf(question));
+        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

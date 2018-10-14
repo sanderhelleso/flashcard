@@ -39,7 +39,7 @@ public class Question {
     }
 
     // load data containing questions
-    public static String loadQuestionData(Context context) {
+    public static void loadQuestionData(Context context) {
         String questionData = null;
 
         // attempt to read JSON data from file
@@ -58,13 +58,10 @@ public class Question {
             // catch error and display
         } catch (IOException ex) {
             ex.printStackTrace();
-            return null;
+            return;
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        // return data
-        return questionData;
     }
 
     private static void createQuestion(String data) throws JSONException {
@@ -85,7 +82,16 @@ public class Question {
             int points = row.getInt("points");
             int time = row.getInt("time");
             String questionQuestion = row.getString("question");
+
+            // question options
+            JSONObject options = new JSONObject(row.getString("options"));
             ArrayList<String> questionOptions = new ArrayList<String >();
+
+            // get the three options for question and add to list
+            questionOptions.add(options.getString("option1"));
+            questionOptions.add(options.getString("option2"));
+            questionOptions.add(options.getString("option3"));
+
             String correctOption = row.getString("correctOption");
 
             // create new question with retrieved values
