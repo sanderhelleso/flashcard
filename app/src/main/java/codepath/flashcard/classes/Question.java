@@ -15,6 +15,7 @@ public class Question {
 
     // all questions are stores in this list
     public static ArrayList<Question> questions = new ArrayList<Question>();
+    public static boolean questionsLoaded = false;
 
     // FIELD VARIABLES
     private int nr;

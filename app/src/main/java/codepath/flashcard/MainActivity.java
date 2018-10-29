@@ -38,9 +38,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         // load questions
-        Question.loadQuestionData(getApplicationContext());
-        for (Question question : Question.questions) {
-            Log.e("Question: ", String.valueOf(question));
+        if (!Question.questionsLoaded) {
+            Question.loadQuestionData(getApplicationContext());
+            for (Question question : Question.questions) {
+                Log.e("Question: ", String.valueOf(question));
+            }
+
+            Question.questionsLoaded = true;
         }
 
         super.onCreate(savedInstanceState);
