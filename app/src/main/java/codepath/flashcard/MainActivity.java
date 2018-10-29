@@ -33,6 +33,15 @@ public class MainActivity extends AppCompatActivity {
     private Question currentQuestion;
     private int totalPoints = 0;
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 100) { // this 100 needs to match the 100 we used when we called startActivityForResult!
+            boolean result = data.getExtras().getBoolean("result");
+            if (result) {
+                
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +73,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, AddQuestionActivity.class));
+                Intent intent = new Intent(MainActivity.this, AddQuestionActivity.class);
+                MainActivity.this.startActivityForResult(intent, 100);
             }
         });
     }
