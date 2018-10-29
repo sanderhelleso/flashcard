@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private Question currentQuestion;
     private int totalPoints = 0;
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 100) { // this 100 needs to match the 100 we used when we called startActivityForResult!
