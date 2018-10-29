@@ -2,9 +2,11 @@ package codepath.flashcard;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.ColorSpace;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,6 +48,21 @@ public class MainActivity extends AppCompatActivity {
 
         // set and display current question
         setQuestion();
+
+        // initiate fab event to change activity to add question
+        addQuestionIntent();
+
+    }
+
+    private void addQuestionIntent() {
+        // fab
+        final FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fabAddQuestion);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, AddQuestionActivity.class));
+            }
+        });
     }
 
     private void togglePrevNext() {
