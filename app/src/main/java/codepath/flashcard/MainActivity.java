@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 100) { // this 100 needs to match the 100 we used when we called startActivityForResult!
+        if (requestCode == 100) { // this 100 needs to match the 100 we used when we called startActivityForResult
             boolean result = data.getExtras().getBoolean("result");
             if (result) {
                 displaySnackBar();
@@ -54,10 +54,6 @@ public class MainActivity extends AppCompatActivity {
         // load questions
         if (!Question.questionsLoaded) {
             Question.loadQuestionData(getApplicationContext());
-            for (Question question : Question.questions) {
-                Log.e("Question: ", String.valueOf(question));
-            }
-
             Question.questionsLoaded = true;
         }
 
@@ -152,10 +148,6 @@ public class MainActivity extends AppCompatActivity {
         final TextView questionPoints = (TextView)findViewById(R.id.questionPoints);
         questionPoints.setText(currentQuestion.getPoints() + " Points");
 
-        // display total points
-        final TextView totalPointsView = (TextView)findViewById(R.id.totalPoints);
-        totalPointsView.setText("My Total Points: " + totalPoints);
-
         // set options
         setQuestionOptions();
 
@@ -195,7 +187,6 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void selectOption(Button selectedOption, ArrayList<Button> options) {
-
         for (Button option : options) {
 
             // set wrong option color
@@ -216,6 +207,8 @@ public class MainActivity extends AppCompatActivity {
         // check if selected option is correct
         if (getResources().getResourceEntryName(selectedOption.getId()).equals(currentQuestion.getCorrect())) {
             totalPoints += currentQuestion.getPoints();
+            Log.e("TOTAL POINTS: ", String.valueOf(totalPoints));
+            Log.e("Current Points: ", String.valueOf(currentQuestion.getPoints()));
         }
 
         else {
@@ -228,10 +221,10 @@ public class MainActivity extends AppCompatActivity {
 
         // update score
         final TextView totalPointsView = (TextView)findViewById(R.id.totalPoints);
-        totalPointsView.setText("My Total Points: " + totalPoints);
+        totalPointsView.setText("Total Points " + totalPoints);
     }
 
     private void displaySnackBar() {
-        Snackbar.make(findViewById(android.R.id.content), "Successfully created question!", Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(findViewById(android.R.id.content), "Successfully created question!", Snackbar.LENGTH_LONG).show();
     }
 }
