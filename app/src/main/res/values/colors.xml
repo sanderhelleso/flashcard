@@ -6,5 +6,6 @@
     <color name="fabAdd">#88304e</color>
     <color name="fabCancel">#ef5350</color>
     <color name="fabConfirm">#00e988</color>
+    <color name="placeholder">#757575</color>
 
 </resources>
