@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.ColorSpace;
+import android.graphics.PorterDuff;
+import android.support.annotation.ColorLong;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -172,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
             final Button optionBtn = options.get(optionIndex);
 
             // reset color
-            optionBtn.setBackgroundColor(rgb(124, 115, 230));
+            optionBtn.getBackground().clearColorFilter();
 
             // enable buttons
             optionBtn.setEnabled(true);
@@ -197,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
         for (Button option : options) {
 
             // set wrong option color
-            option.setBackgroundColor(rgb(232, 74, 95));
+            option.getBackground().setColorFilter(rgb(232, 74, 95), PorterDuff.Mode.SRC);
 
             // disable until next question
             option.setEnabled(false);
@@ -207,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
             if (getResources().getResourceEntryName(option.getId()).equals(currentQuestion.getCorrect())) {
 
                 // set correct option color
-                option.setBackgroundColor(rgb(69, 235, 165));
+                option.getBackground().setColorFilter(rgb(69, 235, 165), PorterDuff.Mode.SRC);
             }
         }
 
