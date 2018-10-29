@@ -12,6 +12,8 @@ public class AddQuestionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().hide();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_question);
 
@@ -53,7 +55,10 @@ public class AddQuestionActivity extends AppCompatActivity {
         backToMainFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish(); // dismiss current acitivty
+                Intent data = new Intent();
+                data.putExtra("result", false); // put true value that card was successfully created
+                setResult(RESULT_OK, data); // set result code and bundle data for response
+                finish(); // closes this activity and pass data to the original activity that launched this activity
             }
         });
     }

@@ -7,6 +7,7 @@ import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.ColorSpace;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,13 +39,14 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 100) { // this 100 needs to match the 100 we used when we called startActivityForResult!
             boolean result = data.getExtras().getBoolean("result");
             if (result) {
-                
+                displaySnackBar();
             }
         }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().hide();
 
         // load questions
         if (!Question.questionsLoaded) {
@@ -224,5 +226,9 @@ public class MainActivity extends AppCompatActivity {
         // update score
         final TextView totalPointsView = (TextView)findViewById(R.id.totalPoints);
         totalPointsView.setText("My Total Points: " + totalPoints);
+    }
+
+    private void displaySnackBar() {
+        Snackbar.make(findViewById(android.R.id.content), "Successfully created question!", Snackbar.LENGTH_SHORT).show();
     }
 }
