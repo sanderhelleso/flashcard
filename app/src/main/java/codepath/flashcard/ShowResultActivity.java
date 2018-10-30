@@ -8,6 +8,8 @@ import android.util.Log;
 import java.util.HashMap;
 import java.util.Map;
 
+import codepath.flashcard.classes.Question;
+
 public class ShowResultActivity extends AppCompatActivity {
 
 
@@ -17,12 +19,12 @@ public class ShowResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_result);
 
         // fetch data from main activity and set to private map
-        displayResults((HashMap<Integer, String>)getIntent().getSerializableExtra("answers"));
+        displayResults((HashMap<Question, String>)getIntent().getSerializableExtra("answers"));
     }
 
-    private void displayResults(HashMap<Integer, String> answers) {
-        for (Map.Entry<Integer, String> entry : answers.entrySet()) {
-            int key = entry.getKey();
+    private void displayResults(HashMap<Question, String> answers) {
+        for (Map.Entry<Question, String> entry : answers.entrySet()) {
+            Question key = entry.getKey();
             String value = entry.getValue();
             Log.e("ANSWERS", key + ": " + value);
         }

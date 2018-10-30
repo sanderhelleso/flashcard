@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     // map to store ID and answer of card
     @SuppressLint("UseSparseArrays")
-    HashMap<Integer, String> answers = new HashMap<>();
+    HashMap<Question, String> answers = new HashMap<>();
 
 
     @Override
@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
     private void loadQuestions() {
         Question.loadQuestionData(getApplicationContext());
         Question.questionsLoaded = true;
-        Question.shuffle(questions);
     }
 
     private void addQuestionIntent() {
@@ -176,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // add answer to map
-        answers.put(currentQuestion.getNr(), getResources().getResourceEntryName(selectedOption.getId()));
+        answers.put(currentQuestion, getResources().getResourceEntryName(selectedOption.getId()));
 
         // update score
         final TextView totalPointsView = (TextView)findViewById(R.id.totalPoints);

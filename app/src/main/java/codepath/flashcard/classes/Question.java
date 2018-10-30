@@ -9,10 +9,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Question {
+public class Question implements Serializable {
 
     // all questions are stores in this list
     public static ArrayList<Question> questions = new ArrayList<Question>();
@@ -63,6 +64,8 @@ public class Question {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        shuffle(questions);
     }
 
     private static void createQuestion(String data) throws JSONException {
@@ -130,4 +133,18 @@ public class Question {
     public String getCorrect() {
         return correct;
     }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "nr=" + nr +
+                ", points=" + points +
+                ", time=" + time +
+                ", question='" + question + '\'' +
+                ", options=" + options +
+                ", correct='" + correct + '\'' +
+                '}';
+    }
 }
+
+
