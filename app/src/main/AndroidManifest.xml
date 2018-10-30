@@ -18,11 +18,13 @@
         </activity>
         <activity
             android:name=".AddQuestionActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <activity android:name=".ShowResultActivity"></activity>
     </application>
 
 </manifest>

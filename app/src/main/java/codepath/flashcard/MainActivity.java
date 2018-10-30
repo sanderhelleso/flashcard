@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 100) { // this 100 needs to match the 100 we used when we called startActivityForResult
             boolean result = data.getExtras().getBoolean("result");
             if (result) {
-                displaySnackBar();
+                displaySnackBarSuccess();
             }
         }
     }
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void togglePrevNext() {
+    /*private void togglePrevNext() {
 
         // prev / next
         final Button prev = (Button)findViewById(R.id.prev);
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
+    }*/
 
 
     @SuppressLint("SetTextI18n")
@@ -133,16 +133,13 @@ public class MainActivity extends AppCompatActivity {
         // set the current question
         currentQuestion = questions.get(questionIndex);
 
-        // add events to toggle next / prev questions
-        togglePrevNext();
-
         // display question
         final TextView question = (TextView)findViewById(R.id.question);
         question.setText(currentQuestion.getQuestion());
 
         // display question id
         final TextView questionID = (TextView)findViewById(R.id.questionID);
-        questionID.setText("Question " + currentQuestion.getNr() + " / " + questions.size());
+        questionID.setText("Question " +  currentQuestion.getNr());
 
         // display how many points the question is worth
         final TextView questionPoints = (TextView)findViewById(R.id.questionPoints);
@@ -207,8 +204,6 @@ public class MainActivity extends AppCompatActivity {
         // check if selected option is correct
         if (getResources().getResourceEntryName(selectedOption.getId()).equals(currentQuestion.getCorrect())) {
             totalPoints += currentQuestion.getPoints();
-            Log.e("TOTAL POINTS: ", String.valueOf(totalPoints));
-            Log.e("Current Points: ", String.valueOf(currentQuestion.getPoints()));
         }
 
         else {
@@ -222,9 +217,52 @@ public class MainActivity extends AppCompatActivity {
         // update score
         final TextView totalPointsView = (TextView)findViewById(R.id.totalPoints);
         totalPointsView.setText("Total Points " + totalPoints);
+
+        // remove question from available questions
+        questions.remove(questionIndex);
+
+        // check if out of questions
+        outOfQuestions();
     }
 
-    private void displaySnackBar() {
+    private void nextQuestion() {
+        displaySnackBarNextQuestion();
+        new android.os.Handler().postDelayed(
+                new Runnable() {
+                    public void run() {
+                        setQuestion();
+                    }
+                },
+                2500);
+    }
+
+    private void outOfQuestions() {
+        if (questions.isEmpty()) {
+            displaySnackBarRedirect();
+            new android.os.Handler().postDelayed(
+                    new Runnable() {
+                        public void run() {
+                            Intent intent = new Intent(MainActivity.this, ShowResultActivity.class);
+                            MainActivity.this.startActivity(intent);
+                        }
+                    },
+                    2000);
+        }
+
+        else {
+            nextQuestion();
+        }
+    }
+
+    private void displaySnackBarSuccess() {
         Snackbar.make(findViewById(android.R.id.content), "Successfully created question!", Snackbar.LENGTH_LONG).show();
+    }
+
+    private void displaySnackBarRedirect() {
+        Snackbar.make(findViewById(android.R.id.content), "Awesome! Lets look at the result!", Snackbar.LENGTH_SHORT).show();
+    }
+
+    private void displaySnackBarNextQuestion() {
+        Snackbar.make(findViewById(android.R.id.content), (questions.size()) + " questions to go!", Snackbar.LENGTH_SHORT).show();
     }
 }
