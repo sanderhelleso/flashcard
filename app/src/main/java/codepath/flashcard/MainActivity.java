@@ -1,32 +1,17 @@
 package codepath.flashcard;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.graphics.Color;
-import android.graphics.ColorSpace;
 import android.graphics.PorterDuff;
-import android.support.annotation.ColorLong;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-
+import codepath.flashcard.classes.Announcement;
 import codepath.flashcard.classes.Question;
 
 import static android.graphics.Color.rgb;
@@ -38,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private int totalPoints = 0;
     private ArrayList<Question> questions = Question.questions;
     private Question currentQuestion;
+    private Announcement announcement = new Announcement();
 
     // map to store ID and answer of card
     @SuppressLint("UseSparseArrays")
@@ -49,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 100) { // this 100 needs to match the 100 we used when we called startActivityForResult
             boolean result = data.getExtras().getBoolean("result");
             if (result) {
-                displaySnackBarSuccess();
+                announcement.displaySnackBarSuccess();
             }
         }
     }
@@ -189,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void nextQuestion() {
-        displaySnackBarNextQuestion();
+        announcement.displaySnackBarNextQuestion(questions);
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
@@ -201,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void outOfQuestions() {
         if (questions.isEmpty()) {
-            displaySnackBarRedirect();
+            announcement.displaySnackBarRedirect();
             new android.os.Handler().postDelayed(
                     new Runnable() {
                         public void run() {
@@ -216,17 +202,5 @@ public class MainActivity extends AppCompatActivity {
         else {
             nextQuestion();
         }
-    }
-
-    private void displaySnackBarSuccess() {
-        Snackbar.make(findViewById(android.R.id.content), "Successfully created question!", Snackbar.LENGTH_LONG).show();
-    }
-
-    private void displaySnackBarRedirect() {
-        Snackbar.make(findViewById(android.R.id.content), "Awesome! Lets look at the result!", Snackbar.LENGTH_SHORT).show();
-    }
-
-    private void displaySnackBarNextQuestion() {
-        Snackbar.make(findViewById(android.R.id.content), (questions.size()) + " questions to go!", Snackbar.LENGTH_SHORT).show();
     }
 }
