@@ -4,11 +4,11 @@
 Android app that allows a user to use flashcards. Displays score and correct / wrong options.
 
 ### App Walk-though
-<img src="https://github.com/sanderhelleso/flashcard/blob/master/app/flashcard.gif" alt="app gif" width=200>
-<img src="https://github.com/sanderhelleso/flashcard/blob/master/app/codepath1.jpg" alt="app gif" width=200>
-<img src="https://github.com/sanderhelleso/flashcard/blob/master/app/codepath2.jpg" alt="app gif" width=200>
-
-
+<p float="left">
+  <img src="https://github.com/sanderhelleso/flashcard/blob/master/app/flashcard.gif" alt="app gif" width=200>
+  <img src="https://github.com/sanderhelleso/flashcard/blob/master/app/codepath1.jpg" alt="app gif" width=200>
+  <img src="https://github.com/sanderhelleso/flashcard/blob/master/app/codepath2.jpg" alt="app gif" width=200>
+</p>
 <br>
 
 ### Required User Stories
