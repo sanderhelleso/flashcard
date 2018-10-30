@@ -24,6 +24,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
 import codepath.flashcard.classes.Question;
 
@@ -31,10 +33,15 @@ import static android.graphics.Color.rgb;
 
 public class MainActivity extends AppCompatActivity {
 
+    // initial values of deck
     private int questionIndex = 0;
+    private int totalPoints = 0;
     private ArrayList<Question> questions = Question.questions;
     private Question currentQuestion;
-    private int totalPoints = 0;
+
+    // map to store ID and answer of card
+    @SuppressLint("UseSparseArrays")
+    HashMap<Integer, String> answers = new HashMap<>();
 
 
     @Override
@@ -53,8 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         // load questions
         if (!Question.questionsLoaded) {
-            Question.loadQuestionData(getApplicationContext());
-            Question.questionsLoaded = true;
+           loadQuestions();
         }
 
         super.onCreate(savedInstanceState);
@@ -68,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void loadQuestions() {
+        Question.loadQuestionData(getApplicationContext());
+        Question.questionsLoaded = true;
+        Question.shuffle(questions);
+    }
+
     private void addQuestionIntent() {
         // fab
         final FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fabAddQuestion);
@@ -79,53 +91,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-    /*private void togglePrevNext() {
-
-        // prev / next
-        final Button prev = (Button)findViewById(R.id.prev);
-        final Button next = (Button)findViewById(R.id.next);
-
-        // enable buttons
-        prev.setEnabled(true);
-        next.setEnabled(true);
-
-        // set base colors
-        prev.getBackground().setAlpha(255);
-        next.getBackground().setAlpha(255);
-
-        // disable prev if at first question
-        if (questionIndex == 0) {
-            prev.setEnabled(false);
-            prev.getBackground().setAlpha(35);
-        }
-
-        // disable next if at last question
-        if (questionIndex == questions.size() - 1) {
-            next.setEnabled(false);
-            next.getBackground().setAlpha(35);
-        }
-
-        // go to previous question
-        prev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                questionIndex--;
-                setQuestion();
-            }
-        });
-
-        // go to next question
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                questionIndex++;
-                setQuestion();
-            }
-        });
-
-    }*/
-
 
     @SuppressLint("SetTextI18n")
     private void setQuestion() {
@@ -186,17 +151,13 @@ public class MainActivity extends AppCompatActivity {
     private void selectOption(Button selectedOption, ArrayList<Button> options) {
         for (Button option : options) {
 
-            // set wrong option color
-            option.getBackground().setColorFilter(rgb(232, 74, 95), PorterDuff.Mode.SRC);
-
             // disable until next question
             option.setEnabled(false);
 
-            // display correct option
-            // check if selected option is correct
-            if (getResources().getResourceEntryName(option.getId()).equals(currentQuestion.getCorrect())) {
+            // set wrong option color
+            option.getBackground().setColorFilter(rgb(232, 74, 95), PorterDuff.Mode.SRC);
 
-                // set correct option color
+            if (getResources().getResourceEntryName(option.getId()).equals(currentQuestion.getCorrect())) {
                 option.getBackground().setColorFilter(rgb(69, 235, 165), PorterDuff.Mode.SRC);
             }
         }
@@ -213,6 +174,9 @@ public class MainActivity extends AppCompatActivity {
                 totalPoints = 0;
             }
         }
+
+        // add answer to map
+        answers.put(currentQuestion.getNr(), getResources().getResourceEntryName(selectedOption.getId()));
 
         // update score
         final TextView totalPointsView = (TextView)findViewById(R.id.totalPoints);
@@ -244,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
                             Intent intent = new Intent(MainActivity.this, ShowResultActivity.class);
                             MainActivity.this.startActivity(intent);
+                            MainActivity.this.startActivityForResult(intent, 200);
                         }
                     },
                     2000);

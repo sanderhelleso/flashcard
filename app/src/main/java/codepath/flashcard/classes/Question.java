@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Question {
 
@@ -98,6 +99,10 @@ public class Question {
             Question question = new Question(nr, points, time, questionQuestion, questionOptions, correctOption);
         }
 
+    }
+
+    public static void shuffle(ArrayList<Question> questions) {
+        Collections.shuffle(questions);
     }
 
 
