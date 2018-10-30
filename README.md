@@ -5,6 +5,10 @@ Android app that allows a user to use flashcards. Displays score and correct / w
 
 ### App Walk-though
 <img src="https://github.com/sanderhelleso/flashcard/blob/master/app/flashcard.gif" alt="app gif" width=200>
+<img src="https://github.com/sanderhelleso/flashcard/blob/master/app/codepath1.jpg" alt="app gif" width=200>
+<img src="https://github.com/sanderhelleso/flashcard/blob/master/app/codepath2.jpg" alt="app gif" width=200>
+
+
 <br>
 
 ### Required User Stories
