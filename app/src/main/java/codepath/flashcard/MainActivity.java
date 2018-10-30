@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
                     new Runnable() {
                         public void run() {
                             Intent intent = new Intent(MainActivity.this, ShowResultActivity.class);
-                            MainActivity.this.startActivity(intent);
+                            intent.putExtra("answers", answers);
                             MainActivity.this.startActivityForResult(intent, 200);
                         }
                     },
